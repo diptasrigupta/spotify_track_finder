@@ -1,15 +1,19 @@
-const SpotifyWebApi = require('spotify-web-api-node');
 
-async function tokenGetter(){
-  const clientId = "d2c1cebaccaa440db11b68ee60e7cdc2"
-  const clientSecret = "74d2346a88de4059bccfa3b340a7a2ce"
+let encodedData = "ZDJjMWNlYmFjY2FhNDQwZGIxMWI2OGVlNjBlN2NkYzI6NzRkMjM0NmE4OGRlNDA1OWJjY2ZhM2IzNDBhN2EyY2U"
+const fetch = require("node-fetch");
 
-  const spotifyApi = new SpotifyWebApi({
-    clientId: clientId,
-    clientSecret: clientSecret
-  });
-  const tokengetter = await spotifyApi.clientCredentialsGrant()
-  return tokengetter.body.access_token
-}
+export default async function getAuthToken() {
+  const data = await fetch("https://accounts.spotify.com/api/token", {
+  body: "grant_type=client_credentials",
+  headers: {
+    Authorization: "Basic " + encodedData,
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  method: "POST"
+})
 
-export default tokenGetter
+  const datajson = await data.json()
+
+  return(datajson.access_token)
+
+    }

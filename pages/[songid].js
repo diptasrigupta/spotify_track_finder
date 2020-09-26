@@ -16,6 +16,7 @@ import { makeStyles, withStyles,  createMuiTheme, ThemeProvider} from '@material
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import theme from "../styles/theme"
+import getAuthToken from "../tokenGetter"
 
 const SongInfo = ({songjson, songfeaturesjson}) => {
   const classes = useStyles();
@@ -92,24 +93,10 @@ const SongInfo = ({songjson, songfeaturesjson}) => {
 
 }
 
-const SpotifyWebApi = require('spotify-web-api-node');
-
-async function tokenGetter(){
-  const clientId = "d2c1cebaccaa440db11b68ee60e7cdc2"
-  const clientSecret = "74d2346a88de4059bccfa3b340a7a2ce"
-
-  const spotifyApi = new SpotifyWebApi({
-    clientId: clientId,
-    clientSecret: clientSecret
-  });
-  const tokengetter = await spotifyApi.clientCredentialsGrant()
-  return tokengetter.body.access_token
-}
-
 
 SongInfo.getInitialProps = async ({query}) => {
 
-  const token = await tokenGetter();
+  const token = await getAuthToken();
 
   const song = await fetch('https://api.spotify.com/v1/tracks/' + query.songid, {
     method: "GET",
