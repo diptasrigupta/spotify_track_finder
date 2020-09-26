@@ -251,7 +251,6 @@ export default function Home({genres, token}) {
   );
 }
 
-const SpotifyWebApi = require('spotify-web-api-node');
 
 async function tokenGetter(){
   const clientId = "d2c1cebaccaa440db11b68ee60e7cdc2"
