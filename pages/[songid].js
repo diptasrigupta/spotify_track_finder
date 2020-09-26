@@ -15,7 +15,7 @@ import Box from '@material-ui/core/Box';
 import { makeStyles, withStyles,  createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
 import CssBaseline from "@material-ui/core/CssBaseline";
 
-import theme from "../styles/theme"s
+import theme from "../styles/theme"
 
 const SongInfo = ({songjson, songfeaturesjson}) => {
   const classes = useStyles();
